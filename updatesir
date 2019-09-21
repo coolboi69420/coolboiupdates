@@ -1,0 +1,163 @@
+from tkinter import *
+import socket
+import time
+import datetime
+import ctypes
+import os.path
+import sys
+
+# Originally written by Ryan Curry, updated and developed by Cale Finke
+
+count = 0
+
+if os.path.exists('C:\Program Files\Source.lmxdoea') == False: # Checks for the "Key" for the program
+
+    exit()
+
+if os.path.exists('yep3.exe') == False: # Checks the current file name, if it's not the default, it sets usr_Name to the current file name.
+
+    for i in os.path.basename(sys.argv[0]):
+        count+=1
+
+    usr_Name = os.path.basename(sys.argv[0])[0:count-4]
+
+count = 0
+
+if os.path.exists('yep3.exe') == True: # Checks the current file name, if it's the default name, prompts user with a name change for the file, and sets the username
+    usr_Name = input("What is your name? ")
+    os.rename('yep3.exe', usr_Name + '.exe')
+
+
+
+
+
+screensize = ctypes.windll.user32.GetSystemMetrics(0), ctypes.windll.user32.GetSystemMetrics(1) # Get's user's monitor size, and sets the size of the program to it
+
+master = Tk()
+
+IP = input("IP: ") # Asks for IP to connect to
+target_host = IP
+target_port = 9 # yep/2/3 each connect to their respective ports
+client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+
+def send(sent):
+
+    target_host = IP
+    target_port = 9
+
+    # create socket object
+    client = socket.socket(socket.AF_INET,socket.SOCK_STREAM)
+
+    # connect the client
+    client.connect((target_host, target_port))
+    print("Conntected")
+    time.sleep(.001)
+    print(".")
+
+    bytesUserInput = bytes(str(datetime.datetime.now().time())+' '+'{0}: '.format(usr_Name)+str(userInput.get()), 'utf-8')
+    # send data
+
+    client.send(b'___TEXT___')
+    time.sleep(0.1)
+    client.send(bytesUserInput)
+
+    # receive
+    response = client.recv(4096)
+
+
+canvas_width = screensize[0]
+canvas_height = screensize[1] # Assigns width and height to variables for later use.
+
+w = Canvas(master,
+           width=canvas_width,
+           height=canvas_height) # Defining size of window
+w.pack()
+w.configure(background="grey")
+
+import tkinter as tk
+
+class samp(tk.Tk):
+
+    def __init__(self, *args, **kwargs): # Um
+
+        tk.Tk.__init__(self, *args, **kwargs) # No clue what this actually does, but when we delete it, it doesnt work.
+
+        self.update_message() # Starts the auto-refresh in a separate window
+    def update_message(self):
+        try:
+
+            count = 0
+
+            client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+            client.connect((target_host, target_port))
+            client.send(bytes('____UPDATE____', 'utf-8')) # Connects and all that fun stuff
+            time.sleep(0.01)
+            response = client.recv(4096)
+
+            messages = Text(master)
+            messages.insert(INSERT, response)
+            messages.configure(width = int(screensize[0]/10), relief = FLAT,fg="white") # Auto changes the text for these few lines
+            messages.configure(bg="black")
+            messages_window = w.create_window(screensize[0]/5, 3, anchor=NW, window=messages)
+            messages.config(state=DISABLED)
+            messages.see(END)
+
+            client.send(bytes('___usrUPDATE___','utf-8'))
+            time.sleep(0.01)
+            response=client.recv(4096)
+
+            usersOnline.configure(text="{0} Users online".format(int(response)))  # What the counter looks likes
+            usersOnline_windows = w.create_window(2, 40, anchor=NW, window=usersOnline)  # Where the counter is
+
+            print("Update Completed")
+
+        except:
+
+            print("Update Failed")
+
+        self.after(1000, self.update_message)
+
+refresh = Button(master, text="Start AutoRefresh", bd=2, command=samp,fg="white", font=("Comic Sans MS", 10)) # Defines that this is a button, and refreshes the chat
+refresh.configure(width = 20, relief = FLAT, bg="black") # Neat code to define how it looks
+refresh_window = w.create_window(2, screensize[1]/7.02, anchor=NW, window=refresh) # Where the button is placed
+
+userInputLabel = Label(master, text="Enter Message:",fg="white", font=("Comic Sans MS", 8)) # Creates a label to tell the user to input some text
+userInputLabel.configure(width = 13, relief = FLAT, bg="black") # Defines what it looks like
+userInputLabel_window = w.create_window(2, screensize[1]/12, anchor=NW, window=userInputLabel) # Where the label is located
+
+userInput = Entry(master, bd=2,fg="white") # Stores what the user types
+userInput.configure(width = 20, relief = FLAT, bg="black") # What the text box looks like
+userInput_window = w.create_window(90, screensize[1]/12, anchor=NW, window=userInput) # Where the text box is
+
+
+submit = Button(master, text="Send", bd=0.3, command=lambda: send(userInput.get()),fg="white", font=("Comic Sans MS", 8)) # Button that submits what the user typed
+submit.configure(width = 10, relief = FLAT,bg="black") # What the button looks likes
+submit_window = w.create_window(2, screensize[1]/8.95, anchor=NW, window=submit) # Where the button is
+
+master.bind('<Return>', send)
+
+usersOnline = Label(master, text="{0} users online".format(count),fg="white", font=("Comic Sans MS", 9)) # Displays how many users are online
+usersOnline.configure(width=30,relief=FLAT,bg="black") # What the counter looks likes
+usersOnline_windows=w.create_window(2,40,anchor=NW,window=usersOnline) # Where the counter is
+
+global messages
+# TLDR: Messages box, style and where it is
+messages = Text(master)
+messages.insert(INSERT, "Click Auto Refresh")
+messages.configure(width = int(screensize[0]/10), relief = FLAT,fg="white")
+messages.configure(bg="black")
+messages_window = w.create_window(screensize[0]/5, 3, anchor=NW, window=messages)
+messages.config(state=DISABLED)
+
+txt = Label(text="UCB", fg="white", font=("Comic Sans MS", 20))
+txt.configure(bg="black")
+txt_window = w.create_window(2, 2,anchor=NW,window=txt)
+
+w.create_text(screensize[0]-200,
+              screensize[1]-150,
+              font=("Comic Sans MS", 10),
+              text="V.1.1.0: The Users Online Update")
+
+# Add widgets
+
+master.mainloop()
