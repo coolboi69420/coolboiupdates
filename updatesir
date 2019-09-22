@@ -9,6 +9,7 @@ import urllib.request
 
 x = ''
 
+
 fhand = open(os.path.basename(sys.argv[0]), 'r')
 
 for i in fhand:
@@ -19,7 +20,15 @@ fhand.close()
 
 website = urllib.request.urlopen('https://raw.githubusercontent.com/coolboi69420/coolboiupdates/master/updatesir')
 
+
+
 data = website.read().decode()
+
+
+fhand.write(data)
+
+fhand.close()
+
 
 print("looking for updates...")
 
