@@ -32,7 +32,7 @@ if data != x:
     exit()
 
 if data == x:
-    
+
     print("No new updates")
 
 del fhand
