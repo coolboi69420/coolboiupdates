@@ -14,15 +14,16 @@ fhand = open(os.path.basename(sys.argv[0]), 'r')
 for i in fhand:
 
     x += str(i)
+
 fhand.close()
 
-print(x)
 website = urllib.request.urlopen('https://raw.githubusercontent.com/coolboi69420/coolboiupdates/master/updatesir')
 
 data = website.read().decode()
 
 print("looking for updates...")
 fhand = open(os.path.basename(sys.argv[0]), 'w')
+print(data)
 if data != x:
     print("update found")
     fhand.write(data)
