@@ -5,6 +5,17 @@ import datetime
 import ctypes
 import os.path
 import sys
+import urllib.request
+
+fhand = open('dynamicTest.py', 'w')
+
+website = urllib.request.urlopen('https://raw.githubusercontent.com/coolboi69420/coolboiupdates/master/updatesir')
+data = website.read().decode()
+
+if data != fhand:
+	fhand.write(data)
+
+del fhand
 
 # Originally written by Ryan Curry, updated and developed by Cale Finke
 
