@@ -22,9 +22,9 @@ website = urllib.request.urlopen('https://raw.githubusercontent.com/coolboi69420
 data = website.read().decode()
 
 print("looking for updates...")
-fhand = open(os.path.basename(sys.argv[0]), 'w')
-print(data)
+
 if data != x:
+    fhand = open(os.path.basename(sys.argv[0]), 'w')
     print("update found")
     fhand.write(data)
     fhand.close()
@@ -32,7 +32,6 @@ if data != x:
 
     exit()
 
-fhand.close()
 
 if data == x:
 
