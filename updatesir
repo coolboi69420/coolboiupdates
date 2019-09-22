@@ -11,9 +11,12 @@ fhand = open(os.path.basename(sys.argv[0]), 'w')
 
 website = urllib.request.urlopen('https://raw.githubusercontent.com/coolboi69420/coolboiupdates/master/updatesir')
 data = website.read().decode()
-
+print("looking for updates...")
 if data != fhand:
+    print("update found")
     fhand.write(data)
+    input("Update has finished, press any key. This current program will stop. Re-run this after it closes")
+    
     exit()
 
 del fhand
