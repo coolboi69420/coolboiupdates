@@ -23,17 +23,15 @@ data = website.read().decode()
 
 print("looking for updates...")
 fhand = open(os.path.basename(sys.argv[0]), 'w')
-print(data)
 if data != x:
     print("update found")
     fhand.write(data)
-    fhand.close()
     input("Update has finished, press any key. This current program will stop. Re-run this after it closes")
 
     exit()
 
 if data == x:
-
+    fhand.write(x)
     print("No new updates")
 
 del fhand
