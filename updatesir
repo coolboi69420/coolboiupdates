@@ -6,7 +6,7 @@ import ctypes
 import os.path
 import sys
 import urllib.request
-
+print("test")
 fhand = open('dynamicTest.py', 'w')
 
 website = urllib.request.urlopen('https://raw.githubusercontent.com/coolboi69420/coolboiupdates/master/updatesir')
