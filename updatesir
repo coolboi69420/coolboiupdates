@@ -6,14 +6,15 @@ import ctypes
 import os.path
 import sys
 import urllib.request
-print("test")
-fhand = open('dynamicTest.py', 'w')
+
+fhand = open(os.path.basename(sys.argv[0]), 'w')
 
 website = urllib.request.urlopen('https://raw.githubusercontent.com/coolboi69420/coolboiupdates/master/updatesir')
 data = website.read().decode()
 
 if data != fhand:
-	fhand.write(data)
+    fhand.write(data)
+    exit()
 
 del fhand
 
