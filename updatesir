@@ -31,6 +31,10 @@ if data != x:
 
     exit()
 
+if data == x:
+    
+    print("No new updates")
+
 del fhand
 
 # Originally written by Ryan Curry, updated and developed by Cale Finke
