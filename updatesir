@@ -198,7 +198,7 @@ txt_window = w.create_window(2, 2,anchor=NW,window=txt)
 w.create_text(screensize[0]-200,
               screensize[1]-150,
               font=("Comic Sans MS", 10),
-              text="V.1.1.0: The Users Online Update")
+              text="V.2.0.0: The Auto Updater Update")
 
 # Add widgets
 
