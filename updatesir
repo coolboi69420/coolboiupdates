@@ -15,7 +15,6 @@ fhand = open(os.path.basename(sys.argv[0]),'r')
 
 for i in fhand:
     x += i
-    print(i)
 
 fhand.close()
 
