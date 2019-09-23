@@ -7,19 +7,30 @@ import os.path
 import sys
 import urllib.request
 
+x = ''
 
 website = urllib.request.urlopen('https://raw.githubusercontent.com/coolboi69420/coolboiupdates/master/updatesir')
 
+fhand = open(os.path.basename(sys.argv[0]),'r')
 
+for i in fhand:
+    x += i
+
+fhand.close()
 
 data = website.read().decode()
+print("Looking for updates...")
+if data == x:
+    print("Update found!")
+    fhand = open(os.path.basename(sys.argv[0]), 'w')
+    print("Patching")
+    fhand.write(data)
+    fhand.close()
+    input("This will now close, please re-run the program.")
+    exit()
 
-print("looking for updates...")
-
-fhand = open(os.path.basename(sys.argv[0]), 'w')
-print("update found")
-fhand.write(data)
-fhand.close()
+else:
+    print("No new updates found.")
 
 del fhand
 
