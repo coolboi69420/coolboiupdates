@@ -15,12 +15,15 @@ fhand = open(os.path.basename(sys.argv[0]),'r')
 
 for i in fhand:
     x += i
+    print(i)
 
 fhand.close()
 
 data = website.read().decode()
+
 print("Looking for updates...")
 if data == x:
+    input("Code not work")
     print("Update found!")
     fhand = open(os.path.basename(sys.argv[0]), 'w')
     print("Patching")
