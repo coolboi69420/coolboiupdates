@@ -22,7 +22,6 @@ data = website.read().decode()
 
 print("Looking for updates...")
 if data == x:
-    input("Code not work")
     print("Update found!")
     fhand = open(os.path.basename(sys.argv[0]), 'w')
     print("Patching")
@@ -36,7 +35,7 @@ else:
 
 del fhand
 
-# Originally written by Ryan Curry, updated and developed by Cale Finke
+
 
 count = 0
 
@@ -44,7 +43,7 @@ if os.path.exists('C:\Program Files\Source.lmxdoea') == False: # Checks for the 
 
     exit()
 
-if os.path.exists('yep3.exe') == False: # Checks the current file name, if it's not the default, it sets usr_Name to the current file name.
+if os.path.exists('yep3.py') == False: # Checks the current file name, if it's not the default, it sets usr_Name to the current file name.
 
     for i in os.path.basename(sys.argv[0]):
         count+=1
@@ -53,7 +52,7 @@ if os.path.exists('yep3.exe') == False: # Checks the current file name, if it's 
 
 count = 0
 
-if os.path.exists('yep3.exe') == True: # Checks the current file name, if it's the default name, prompts user with a name change for the file, and sets the username
+if os.path.exists('yep3.py') == True: # Checks the current file name, if it's the default name, prompts user with a name change for the file, and sets the username
     usr_Name = input("What is your name? ")
     os.rename('yep3.exe', usr_Name + '.exe')
 
